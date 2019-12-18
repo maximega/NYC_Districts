@@ -16,13 +16,19 @@ def result():
             mimetype='application/json'
         )
         return res
-        
-    # ----------------- SIf at least one district is toggled -----------------
-    districts = request.args['districts'].lower().split('&')
-    for d in districts:
-        d.split()[0:-1]
 
+    # ----------------- If at least one district is toggled -----------------
+    districts = request.args.getlist('districts')[0].lower().split(',')
     d_len = len(districts)
+
+    for i in range(d_len):
+        temp = districts[i].split()[0]
+        if temp == 'neighborhood':  districts[i] = 'nta'
+        elif temp == 'city':    districts[i] = 'council'
+        elif temp == 'state':    districts[i] = 'assembly'
+        elif temp == 'angela':    districts[i] = 'senate' #TODO: remeber to make this the same accross the board
+        else:   districts[i] = temp
+
     data = [None] * d_len
 
     for i in range(d_len):
@@ -37,16 +43,11 @@ def result():
 
 #---------- Retrieve district geo info ---------------
 def get_boundry(repo_name):
-
-    if 'neighborhood' in repo_name:
-        repo_name = 'nta'
-    elif len(repo_name) > 1:
-        repo_name = repo_name[1]
-
     client = pymongo.MongoClient()
     repo = client.district_repo
+    #TODO: pymongo find our how to query data properly
     data = repo[repo_name].find_one()
-
+    print(data)
     for item in data:
         item['_id'] = ''
 
