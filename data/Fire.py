@@ -3,13 +3,13 @@ import pymongo
 import urllib.request
 import uuid
 
-class fire():
+class Fire():
     reads = []
     writes = ['district.fire']
 
     @staticmethod
     def execute(trial = False):
-        repo_name = fire.writes[0]
+        repo_name = Fire.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
         repo = client.district_repo

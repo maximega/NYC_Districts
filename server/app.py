@@ -1,30 +1,22 @@
-import flask
-import requests
 import json
-import sys
-import os
+import pymongo
+import requests
 from flask import Flask, request, render_template, redirect, url_for, session, json
 
-from kmeans_app import execute
 
 app = Flask(__name__)
 
 @app.route('/result', methods=['GET'])
 def result():
-    zones = request.args['district']
 
-    if zones == '':
-        zones = 5
-    if percent_max == '':
-        percent_max = 20
-    if percent_min == '':
-        percent_min = 1
-    if factor == '':
-        factor = 1.4
-    data = execute(int(zones), float(percent_max), float(percent_min), float(factor))
+    district = request.args['district'].lower().split()[0:-1]
 
-    for x in data:
-        x['_id'] = ""
+    if 'Neighborhood' in district:
+        district = 'nta'
+    elif len(district) > 1:
+        district = district[1]
+
+    data = get_boundry(district)
         
     res = app.response_class(
         response=json.dumps(data),
@@ -32,6 +24,16 @@ def result():
         mimetype='application/json'
     )
     return res
+
+def get_boundry(repo_name):
+    client = pymongo.MongoClient()
+    repo = client.district_repo
+    data = repo[repo_name].find_one()
+
+    for item in data:
+        item['_id'] = ''
+
+    return data
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True)

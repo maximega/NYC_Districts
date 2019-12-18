@@ -31,5 +31,3 @@ class ZipCode():
         
         repo.logout()
         print(repo_name, "completed")
-
-Zipcode.execute()
