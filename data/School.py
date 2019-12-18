@@ -12,7 +12,7 @@ class School():
         repo_name = School.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/cuae-wd7h.json'

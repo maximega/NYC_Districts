@@ -3,16 +3,16 @@ import pymongo
 import urllib.request
 import uuid
 
-class Fire():
+class fire():
     reads = []
     writes = ['district.fire']
 
     @staticmethod
     def execute(trial = False):
-        repo_name = Fire.writes[0]
+        repo_name = fire.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/xzng-ft6f.json'

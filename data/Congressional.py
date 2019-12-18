@@ -3,16 +3,16 @@ import pymongo
 import urllib.request
 import uuid
 
-class Congress():
+class Congressional():
     reads = []
-    writes = ['district.congress']
+    writes = ['district.congressional']
 
     @staticmethod
     def execute(trial = False):
-        repo_name = Congress.writes[0]
+        repo_name = Congressional.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/miue-f5mc.json'
@@ -29,3 +29,5 @@ class Congress():
         
         repo.logout()
         print(repo_name, "completed")
+
+

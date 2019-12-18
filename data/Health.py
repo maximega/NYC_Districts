@@ -12,7 +12,7 @@ class Health():
         repo_name = Health.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/6ez8-za84.json'

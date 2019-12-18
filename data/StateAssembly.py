@@ -3,19 +3,19 @@ import pymongo
 import urllib.request
 import uuid
 
-class Council():
+class StateAssembly():
     reads = []
-    writes = ['district.council']
+    writes = ['district.assembly']
 
     @staticmethod
     def execute(trial = False):
-        repo_name = Council.writes[0]
+        repo_name = StateAssembly.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
-        url = 'https://data.cityofnewyork.us/resource/ve3w-z72j.json'
+        url = 'https://data.cityofnewyork.us/resource/qbgu-kv2h.json'
         request = urllib.request.Request(url)
         response = urllib.request.urlopen(request)
         content = response.read()

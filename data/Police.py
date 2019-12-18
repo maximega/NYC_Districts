@@ -12,7 +12,7 @@ class Police():
         repo_name = Police.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/kmub-vria.json'

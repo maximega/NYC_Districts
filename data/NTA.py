@@ -5,14 +5,14 @@ import uuid
 
 class NTA():
     reads = []
-    writes = ['mta.nta']
+    writes = ['district.nta']
 
     @staticmethod
     def execute(trial = False):
         repo_name = NTA.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/q2z5-ai38.json'

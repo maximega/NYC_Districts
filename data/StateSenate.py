@@ -3,16 +3,16 @@ import pymongo
 import urllib.request
 import uuid
 
-class Senate():
+class StateSenate():
     reads = []
-    writes = ['district.Senate']
+    writes = ['district.senate']
 
     @staticmethod
     def execute(trial = False):
-        repo_name = Senate.writes[0]
+        repo_name = StateSenate.writes[0]
         # ----------------- Set up the database connection -----------------
         client = pymongo.MongoClient()
-        repo = client.repo
+        repo = client.district_repo
         
         #------------------ Data retrieval ---------------------
         url = 'https://data.cityofnewyork.us/resource/afns-vxeu.json'
