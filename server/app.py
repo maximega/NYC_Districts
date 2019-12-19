@@ -29,13 +29,13 @@ def result():
         elif temp == 'angela':    districts[i] = 'senate' #TODO: remeber to make this the same accross the board
         else:   districts[i] = temp
 
-    data = [None] * d_len
-
+    json_ = {}
     for i in range(d_len):
-        data[i] = get_boundry(districts[i])
-        
+        repo_name = "district." + districts[i]
+        json_[districts[i]] = get_boundry(repo_name)
+
     res = app.response_class(
-        response=json.dumps(data),
+        response=json.dumps(json_),
         status=200,
         mimetype='application/json'
     )
@@ -45,13 +45,15 @@ def result():
 def get_boundry(repo_name):
     client = pymongo.MongoClient()
     repo = client.district_repo
-    #TODO: pymongo find our how to query data properly
-    data = repo[repo_name].find_one()
-    print(data)
-    for item in data:
-        item['_id'] = ''
+    boundries = repo[repo_name]
 
-    return data
+    district_temp = {}
+    #TODO: create uniform labeling for every data set 
+    for boundry in boundries.find():
+        district_temp['_id'] = ''
+        district_temp['the_geom'] = boundry['the_geom']
+
+    return district_temp
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True)
