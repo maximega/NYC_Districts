@@ -48,10 +48,10 @@ def get_boundry(repo_name):
     boundries = repo[repo_name]
 
     district_temp = {}
-    #TODO: create uniform labeling for every data set 
     for boundry in boundries.find():
         district_temp['_id'] = ''
         district_temp['the_geom'] = boundry['the_geom']
+        district_temp['label'] = boundry['label']
 
     return district_temp
 
